@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TKKME
 Tags: profanity filter, word filter, content filter, phonetic filter, bleep filter
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 0.2
+Stable tag: 0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -24,6 +24,8 @@ With the Bleep Filter plugin all you have to do is add your words and the plugin
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently asked questions ==
+= Will my posts and comments be edited permanently? =
+No. Bleep Filter works passively ensuring that your original content, posts, and comments remain the same even if you delete or deactivate the plugin.
 
 = How do I prevent certain words from being filtered? =
 
@@ -37,12 +39,14 @@ Alternatively you can add exception words or phrases using the plugin's exceptio
 2. http://filterplugin.com/images/screenshots/bleep_filter_words.jpg
 
 == Changelog ==
-version 0.2 initial release
 
+= 0.3 =
+*now includes titles and excerpts
+
+= 0.2 =
+*initial release
 
 == Upgrade notice ==
-none
 
-
-== Arbitrary section 1 ==
-none
+= 0.3 =
+This version now includes titles and excerpts

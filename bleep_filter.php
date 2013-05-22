@@ -3,7 +3,7 @@
 Plugin Name: Bleep Filter
 Plugin URI: http://www.filterplugin.com
 Description: A better word filter that removes unwanted words from your wordpress site by easily capturing common misspellings and deliberate obfuscation
-Version: 0.2
+Version: 0.3
 Author: Nathan Lampe
 Author URI: http://www.nathanlampe.com
 License: GPL2
@@ -52,17 +52,23 @@ class BleepFilterPlugin
 			/* Check which settings are toggled on */
 			if($bleep_filter_content == 'on'){
 				add_filter( 'the_content' , array( $this, 'word_filter' ) , 50 );
+				add_filter( 'the_excerpt' , array( $this, 'word_filter' ), 50 );
+				add_filter( 'the_title' , array( $this, 'word_filter' ), 50 );
 			}
 			if($bleep_filter_content_rss == 'on'){
 				add_filter( 'the_content_rss' , array( $this, 'word_filter' ) , 50 );
+				add_filter( 'the_excerpt_rss' , array( $this, 'word_filter' ) , 50 );
+				add_filter( 'the_title_rss' , array( $this, 'word_filter' ) , 50 );
 			}
 			
 			if($bleep_filter_comment == 'on'){
 				add_filter( 'comment_text' , array( $this, 'word_filter' ), 50);
+				add_filter( 'comment_excerpt' , array( $this, 'word_filter' ), 50);
 			}
 			
 			if($bleep_filter_comment_rss == 'on'){
 				add_filter( 'comment_text_rss' , array( $this, 'word_filter' ), 50 );
+				add_filter( 'comment_excerpt_rss' , array( $this, 'word_filter' ), 50);
 			}
 
 		}
