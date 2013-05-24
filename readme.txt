@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TKKME
 Tags: profanity filter, word filter, content filter, phonetic filter, bleep filter
 Requires at least: 3.5.1
 Tested up to: 3.5.1
-Stable tag: 0.3
+Stable tag: 0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ An advanced word and content filter perfect for eliminating profanity and spoile
 
 == Description ==
 
-The Bleep Filter plugin is a free and open source advanced content filtering plugin for WordPress. Commonly used as a bad word filter, this plugin offers a variety of applications for your needs. Easily add the words you want to filter out and the plugin will find those words in your blog's comments, posts, and rss feeds and replace them in a variety of styles.
+The Bleep Filter plugin is a free and open source advanced content filtering plugin for WordPress. Commonly used as a bad word filter, this plugin offers a variety of applications for your needs. Easily add the words you want to filter out and the plugin will find those words in your blog's comments, posts, and rss feeds and passively replace them in a variety of styles.
 
 Using a highly advanced phonetic algorithm, not only is the spelling being detected but also how the word sounds. This makes it much more difficult for mischievous posters to bypass the filter intentionally.
 
@@ -35,18 +35,22 @@ Alternatively you can add exception words or phrases using the plugin's exceptio
 
 == Screenshots ==
 
-1. http://filterplugin.com/images/screenshots/bleep_filter_settings.jpg
-2. http://filterplugin.com/images/screenshots/bleep_filter_words.jpg
+1. /assets/bleep_filter_settings.jpg
+2. /assets/bleep_filter_example.jpg
 
 == Changelog ==
+= 0.4 =
+* added csv importing
+* updated settings page link
+* removed filtering while logged in as admin
 
 = 0.3 =
-*now includes titles and excerpts
+* now includes titles and excerpts
 
 = 0.2 =
-*initial release
+* initial release
 
 == Upgrade notice ==
 
-= 0.3 =
-This version now includes titles and excerpts
+= 0.4 =
+This version now includes importing with csv files for adding words in bulk

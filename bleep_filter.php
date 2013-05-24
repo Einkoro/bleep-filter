@@ -2,8 +2,8 @@
 /*
 Plugin Name: Bleep Filter
 Plugin URI: http://www.filterplugin.com
-Description: A better word filter that removes unwanted words from your wordpress site by easily capturing common misspellings and deliberate obfuscation
-Version: 0.3
+Description: A better word filter that passively removes unwanted words from your wordpress site by easily capturing common misspellings and deliberate obfuscation
+Version: 0.4
 Author: Nathan Lampe
 Author URI: http://www.nathanlampe.com
 License: GPL2
@@ -39,6 +39,8 @@ class BleepFilterPlugin
 			add_action( 'admin_init', array( $this,'jquery_admin') );
 			/* Creats admin settings page */
 			add_action('admin_menu' , array( $this, 'register_bleep_filter_settings') ); 
+			/* Creats admin import page */
+			add_action('admin_menu' , array( $this, 'register_bleep_filter_import') ); 
 			/* Creates settings link for plugin page */
 			add_filter('plugin_action_links', array( $this, 'bleep_filter_words_settings_link' ), 2, 2);
 			/* Register with hook 'wp_enqueue_scripts', which can be used for front end CSS and JavaScript */
@@ -49,26 +51,28 @@ class BleepFilterPlugin
 			$bleep_filter_comment = get_option('bleep_filter_comment'); 
 			$bleep_filter_comment_rss = get_option('bleep_filter_comment_rss');
 			
-			/* Check which settings are toggled on */
-			if($bleep_filter_content == 'on'){
-				add_filter( 'the_content' , array( $this, 'word_filter' ) , 50 );
-				add_filter( 'the_excerpt' , array( $this, 'word_filter' ), 50 );
-				add_filter( 'the_title' , array( $this, 'word_filter' ), 50 );
-			}
-			if($bleep_filter_content_rss == 'on'){
-				add_filter( 'the_content_rss' , array( $this, 'word_filter' ) , 50 );
-				add_filter( 'the_excerpt_rss' , array( $this, 'word_filter' ) , 50 );
-				add_filter( 'the_title_rss' , array( $this, 'word_filter' ) , 50 );
-			}
-			
-			if($bleep_filter_comment == 'on'){
-				add_filter( 'comment_text' , array( $this, 'word_filter' ), 50);
-				add_filter( 'comment_excerpt' , array( $this, 'word_filter' ), 50);
-			}
-			
-			if($bleep_filter_comment_rss == 'on'){
-				add_filter( 'comment_text_rss' , array( $this, 'word_filter' ), 50 );
-				add_filter( 'comment_excerpt_rss' , array( $this, 'word_filter' ), 50);
+			if ( ! is_admin() ) {
+				/* Check which settings are toggled on */
+				if($bleep_filter_content == 'on'){
+					add_filter( 'the_content' , array( $this, 'word_filter' ) , 50 );
+					add_filter( 'the_excerpt' , array( $this, 'word_filter' ), 50 );
+					add_filter( 'the_title' , array( $this, 'word_filter' ), 50 );
+				}
+				if($bleep_filter_content_rss == 'on'){
+					add_filter( 'the_content_rss' , array( $this, 'word_filter' ) , 50 );
+					add_filter( 'the_excerpt_rss' , array( $this, 'word_filter' ) , 50 );
+					add_filter( 'the_title_rss' , array( $this, 'word_filter' ) , 50 );
+				}
+				
+				if($bleep_filter_comment == 'on'){
+					add_filter( 'comment_text' , array( $this, 'word_filter' ), 50);
+					add_filter( 'comment_excerpt' , array( $this, 'word_filter' ), 50);
+				}
+				
+				if($bleep_filter_comment_rss == 'on'){
+					add_filter( 'comment_text_rss' , array( $this, 'word_filter' ), 50 );
+					add_filter( 'comment_excerpt_rss' , array( $this, 'word_filter' ), 50);
+				}
 			}
 
 		}
@@ -144,8 +148,13 @@ class BleepFilterPlugin
 		
 		/* Creates Settings Page */
 		function register_bleep_filter_settings() {
-			add_submenu_page('bleep-filter-menu', 'Filter Settings', 'Filter Settings', 'edit_posts', 'edit.php', array($this,'bleep_filter_settings'));
+			add_submenu_page('bleep-filter-menu', 'Filter Settings', 'Filter Settings', 'edit_posts', 'bleep-settings.php', array($this,'bleep_filter_settings'));
 			add_action('admin_init', array($this, 'bleep_filter_settings_store' ) );
+		}
+		
+		/* Creates Import Page */
+		function register_bleep_filter_import() {
+			add_submenu_page('bleep-filter-menu', 'Import', 'Import', 'edit_posts', 'bleep-import.php', array($this,'bleep_filter_import'));
 		}
 		
 		/* Saved Settings Variables */
@@ -169,9 +178,80 @@ class BleepFilterPlugin
 		/* Creates settings link for plugin page */
 		function bleep_filter_words_settings_link($actions, $file) {
 			if(false !== strpos($file, 'filter')){
-				$actions['settings'] = '<a href="admin.php?page=edit.php">Settings</a>';
+				$actions['settings'] = '<a href="admin.php?page=bleep-settings.php">Settings</a>';
 				return $actions; 
 			}
+		}
+		
+		
+		function import_bleeps($_FILES){
+			if ( is_admin() ) {
+				if($_FILES){
+					ini_set('auto_detect_line_endings',TRUE);
+					$csv = '';
+					$type = '';
+					if($_FILES['bleep_words']){
+						$csv = $_FILES['bleep_words']['tmp_name'];
+						$type = "bleep_filter_words";
+					}
+					elseif($_FILES['bleep_exceptions']){
+						$csv = $_FILES['bleep_exceptions']['tmp_name'];
+						$type = "bleep_exception";
+					}
+				
+					if (($handle = fopen($csv, "r")) !== FALSE) {
+						$word_count = 0;
+						while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+							$num = count($data);
+							for ($c=0; $c < $num; $c++) {
+								if(!get_page_by_title($data[$c], 'OBJECT', "$type")){
+									$word_count++;
+									$post = array(
+										  'comment_status' =>  'closed',
+										  'post_author' => 1,
+										  'post_date' => date('Y-m-d H:i:s'),
+										  'post_status' => 'publish', 
+										  'post_title' => $data[$c], 
+										  'post_type' => "$type" // custom type
+										
+										
+										);  
+									wp_insert_post($post); 
+								}
+				
+							}
+						}
+						return "<h2>=== Import Complete ===</h2><h3><em>$word_count words added</em></h3>";
+						fclose($handle);
+					}
+				}
+				
+				ini_set('auto_detect_line_endings',FALSE);
+			}	
+		}
+		
+		
+		
+		function bleep_filter_import(){
+			?>
+			<div class="wrap">
+			 <h2>Bleep Filter Import</h2>
+                <p>Here you can import bad words and exceptions using a <strong>CSV file</strong> or <strong>comma separated text file.</strong></p>
+                <?php
+					if(isset($_POST['import'])){
+				 		echo $this->import_bleeps($_FILES);
+				 	}
+				?>
+                <h3>Import Filtered Words</h3>
+				<form action="<?php echo "admin.php?page=bleep-import.php"; ?>" method="post" enctype="multipart/form-data" >
+                	<input type="file" name="bleep_words" id="bleep_words" /><input class="button-primary"  type="submit" value="import" name="import" />
+                </form><br /><br />
+                <h3>Import Exception Words</h3>
+				<form action="<?php echo "admin.php?page=bleep-import.php"; ?>" method="post" enctype="multipart/form-data" >
+                	<input type="file" name="bleep_exceptions" id="bleep_exceptions" /><input class="button-primary"  type="submit" value="import" name="import" />
+                </form>	
+            </div>
+        	<?php
 		}
 		
 		/* Settings Link Page */
@@ -241,9 +321,7 @@ class BleepFilterPlugin
 					<p class="submit">
 						<input type="submit" class="button-primary" value="Save Changes" />
 					</p>
-		
 				</form>
-		
 			</div>
 		
 		<?php }
