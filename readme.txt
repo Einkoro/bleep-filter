@@ -40,8 +40,8 @@ For example you want to filter the word shazbot. Normally you add the word to th
 
 == Screenshots ==
 
-1. /assets/bleep_filter_settings.jpg
-2. /assets/bleep_filter_example.jpg
+1. Bleep Filter Settings Page
+2. A spoiler word on a post
 
 == Changelog ==
 = 0.4 =
