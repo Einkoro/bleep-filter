@@ -8,7 +8,7 @@ Stable tag: 0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-An advanced word and content filter perfect for eliminating profanity and spoilers.
+An advanced word and content filter perfect for passively eliminating profanity and spoilers.
 
 == Description ==
 
@@ -33,6 +33,11 @@ If the filter is picking up words that it shouldn't try turning up the word matc
 
 Alternatively you can add exception words or phrases using the plugin's exceptions words list to prevent them from being filtered.
 
+= How does it work? =
+Most bad word filters use simple one for one matching of words. This makes filtering difficult because it forces you to think of every possible spelling for each word in every situation for it to be effective.
+
+For example you want to filter the word shazbot. Normally you add the word to the filter and hope the correct spelling is used. What happens if the user types the word shaazzzboughtte! or even sh@zb0t!? Would the filter pick it up? Bleep Filter would.
+
 == Screenshots ==
 
 1. /assets/bleep_filter_settings.jpg
@@ -52,5 +57,5 @@ Alternatively you can add exception words or phrases using the plugin's exceptio
 
 == Upgrade notice ==
 
-= 0.4 =
-This version now includes importing with csv files for adding words in bulk
+= 0.3 =
+This version now includes titles and excerpts
