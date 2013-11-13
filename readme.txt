@@ -1,10 +1,9 @@
 === Bleep Filter ===
 Contributors: Nathan Lampe
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=TKKMEA2Z8NZCW&lc=US&item_name=Bleep%20Filter&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donate_LG%2egif%3aNonHosted
 Tags: profanity filter, word filter, content filter, phonetic filter, bleep filter
 Requires at least: 3.5.1
-Tested up to: 3.5.1
-Stable tag: 0.4
+Tested up to: 3.7.1
+Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,9 +28,7 @@ No. Bleep Filter works passively ensuring that your original content, posts, and
 
 = How do I prevent certain words from being filtered? =
 
-If the filter is picking up words that it shouldn't try turning up the word match intensity in the settings. This will require a closer match to your banned words in order for it to filter.
-
-Alternatively you can add exception words or phrases using the plugin's exceptions words list to prevent them from being filtered.
+If the filter is picking up words that it shouldn't you can add exception words or phrases using the plugin's exceptions words list to prevent them from being filtered.
 
 = How does it work? =
 Most bad word filters use simple one for one matching of words. This makes filtering difficult because it forces you to think of every possible spelling for each word in every situation for it to be effective.
@@ -44,6 +41,11 @@ For example you want to filter the word shazbot. Normally you add the word to th
 2. A spoiler word on a post
 
 == Changelog ==
+= 1.0 =
+* improved word matching and performance
+* added replacement words
+* removed intensity settings
+
 = 0.4 =
 * added csv importing
 * updated settings page link
@@ -57,5 +59,5 @@ For example you want to filter the word shazbot. Normally you add the word to th
 
 == Upgrade notice ==
 
-= 0.3 =
-This version now includes titles and excerpts
+= 1.0 =
+This version now includes improved matching and performance. Can now replace bad words with a replacement word.
