@@ -3,7 +3,7 @@
 Plugin Name: Bleep Filter
 Plugin URI: http://www.filterplugin.com
 Description: A better word filter that passively removes unwanted words from your wordpress site by easily capturing common misspellings and deliberate obfuscation
-Version: 1.0
+Version: 1.1
 Author: Nathan Lampe
 Author URI: http://www.nathanlampe.com
 License: GPL2

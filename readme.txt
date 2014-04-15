@@ -1,9 +1,9 @@
 === Bleep Filter ===
-Contributors: Nathan Lampe
+Contributors: Nathan Lampe, Jan Pingel
 Tags: profanity filter, word filter, content filter, phonetic filter, bleep filter
 Requires at least: 3.5.1
-Tested up to: 3.7.1
-Stable tag: 1.0
+Tested up to: 3.8.3
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,9 @@ For example you want to filter the word shazbot. Normally you add the word to th
 2. A spoiler word on a post
 
 == Changelog ==
+= 1.1 =
+* Fix for PHP 5.4 csv importing
+
 = 1.0 =
 * improved word matching and performance
 * added replacement words
@@ -59,5 +62,5 @@ For example you want to filter the word shazbot. Normally you add the word to th
 
 == Upgrade notice ==
 
-= 1.0 =
-This version now includes improved matching and performance. Can now replace bad words with a replacement word.
+= 1.1 =
+Updated to fix csv importing for PHP 5.4
