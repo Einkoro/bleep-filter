@@ -208,18 +208,18 @@ class WPAdmin extends BleepFilter
 		add_submenu_page('bleep-filter-menu', 'Import', 'Import', 'edit_posts', 'bleep-import.php', array($this,'bleep_filter_import'));
 	}
 	
-	public function import_bleeps($_FILES){
+	public function import_bleeps($files){
 		if ( is_admin() ) {
-			if($_FILES){
+			if($files){
 				ini_set('auto_detect_line_endings',TRUE);
 				$csv = '';
 				$type = '';
-				if($_FILES['bleep_words']){
-					$csv = $_FILES['bleep_words']['tmp_name'];
+				if($files['bleep_words']){
+					$csv = $files['bleep_words']['tmp_name'];
 					$type = "bleep_filter_words";
 				}
-				elseif($_FILES['bleep_exceptions']){
-					$csv = $_FILES['bleep_exceptions']['tmp_name'];
+				elseif($files['bleep_exceptions']){
+					$csv = $files['bleep_exceptions']['tmp_name'];
 					$type = "bleep_exception";
 				}
 			
