@@ -35,7 +35,9 @@ class PhoneticBleepFilter extends BleepFilter
 			/* bbPress specific filtering (only if bbPress is present) */
 			if( class_exists('bbPress') and $bleep_filter_bbpress == 'on' ) {
 				add_filter( 'bbp_get_topic_content', array( $this, 'word_filter' ), 50 );
+				add_filter( 'bbp_get_topic_title',   array( $this, 'word_filter' ), 50 );
 				add_filter( 'bbp_get_reply_content', array( $this, 'word_filter' ), 50 );
+				add_filter( 'bbp_get_reply_title',   array( $this, 'word_filter' ), 50 );
 			}
 			
 			/* Load Filtered Words and Exceptions */
