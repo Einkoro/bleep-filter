@@ -131,6 +131,7 @@ class WPAdmin extends BleepFilter
 		register_setting('bleep_filter_settings', 'bleep_filter_content_rss');
 		register_setting('bleep_filter_settings', 'bleep_filter_comment');
 		register_setting('bleep_filter_settings', 'bleep_filter_comment_rss');
+		register_setting('bleep_filter_settings', 'bleep_filter_bbpress');
 		register_setting('bleep_filter_settings', 'bleep_filter_format');
 	}
 	
@@ -292,12 +293,14 @@ class WPAdmin extends BleepFilter
 					$bleep_filter_content_rss = get_option('bleep_filter_content_rss'); 
 					$bleep_filter_comment = get_option('bleep_filter_comment'); 
 					$bleep_filter_comment_rss = get_option('bleep_filter_comment_rss'); 
+					$bleep_filter_bbpress = get_option('bleep_filter_bbpress'); 
 					$bleep_filter_format = get_option('bleep_filter_format');
 				?>
 				<p><input name='bleep_filter_content'  type="checkbox" <?php if($bleep_filter_content=='on'){echo "checked";} ?> /> <label for="bleep_filter_content">Pages & Posts</label></p>
 				<p><input name='bleep_filter_content_rss'   type="checkbox" <?php if($bleep_filter_content_rss=='on'){echo "checked";} ?> /> <label for="bleep_filter_content_rss">RSS Pages & RSS Posts</label></p>
 				<p><input name='bleep_filter_comment'   type="checkbox" <?php if($bleep_filter_comment=='on'){echo "checked";} ?> /> <label for="bleep_filter_comment">Comments</label></p>
 				<p><input name='bleep_filter_comment_rss'   type="checkbox" <?php if($bleep_filter_comment_rss=='on'){echo "checked";} ?> /> <label for="bleep_filter_comment_rss">Comments RSS</label></p>
+				<p><input name='bleep_filter_bbpress'   type="checkbox" <?php if($bleep_filter_bbpress=='on'){echo "checked";} ?> /> <label for="bleep_filter_bbpress">bbPress Topics & Replies</label></p>
 					
 				<div class='bleep_filter_mtop'>
 					<h3 class='bleep_filter_mtop_sm'>How do you want it styled?</h3>
