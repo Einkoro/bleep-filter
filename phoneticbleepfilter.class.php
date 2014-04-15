@@ -6,6 +6,7 @@ class PhoneticBleepFilter extends BleepFilter
 		$bleep_filter_content_rss = get_option('bleep_filter_content_rss'); 
 		$bleep_filter_comment = get_option('bleep_filter_comment'); 
 		$bleep_filter_comment_rss = get_option('bleep_filter_comment_rss');
+		$bleep_filter_bbpress = get_option('bleep_filter_bbpress'); 
 		
 
 		if ( ! is_admin() ) {
@@ -30,6 +31,12 @@ class PhoneticBleepFilter extends BleepFilter
 				add_filter( 'comment_text_rss' , array( $this, 'word_filter' ), 50 );
 				add_filter( 'comment_excerpt_rss' , array( $this, 'word_filter' ), 50);
 			}
+            
+			/* bbPress specific filtering (only if bbPress is present) */
+			if( class_exists('bbPress') and $bleep_filter_bbpress == 'on' ) {
+				add_filter( 'bbp_get_topic_content', array( $this, 'word_filter' ), 50 );
+				add_filter( 'bbp_get_reply_content', array( $this, 'word_filter' ), 50 );
+			}
 			
 			/* Load Filtered Words and Exceptions */
 			$this->alert_words = $this->get_words();
@@ -52,6 +59,7 @@ class PhoneticBleepFilter extends BleepFilter
 			$replace_words[$post->post_title] = esc_attr( $value );
 		}
 		$this->replace_words = $replace_words;
+        
 		return $alert_words;
 	}
 	
