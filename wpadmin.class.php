@@ -300,7 +300,9 @@ class WPAdmin extends BleepFilter
 				<p><input name='bleep_filter_content_rss'   type="checkbox" <?php if($bleep_filter_content_rss=='on'){echo "checked";} ?> /> <label for="bleep_filter_content_rss">RSS Pages & RSS Posts</label></p>
 				<p><input name='bleep_filter_comment'   type="checkbox" <?php if($bleep_filter_comment=='on'){echo "checked";} ?> /> <label for="bleep_filter_comment">Comments</label></p>
 				<p><input name='bleep_filter_comment_rss'   type="checkbox" <?php if($bleep_filter_comment_rss=='on'){echo "checked";} ?> /> <label for="bleep_filter_comment_rss">Comments RSS</label></p>
+				<?php if(class_exists('bbPress')): ?>
 				<p><input name='bleep_filter_bbpress'   type="checkbox" <?php if($bleep_filter_bbpress=='on'){echo "checked";} ?> /> <label for="bleep_filter_bbpress">bbPress Topics & Replies</label></p>
+				<?php endif; ?>
 					
 				<div class='bleep_filter_mtop'>
 					<h3 class='bleep_filter_mtop_sm'>How do you want it styled?</h3>
